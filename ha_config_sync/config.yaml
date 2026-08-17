@@ -1,0 +1,35 @@
+name: "HA Config Sync"
+version: "0.1.0"
+slug: "ha_config_sync"
+description: "Safe bidirectional Git sync for Home Assistant configuration"
+arch:
+  - amd64
+
+startup: application
+boot: auto
+init: false
+
+hassio_api: true
+hassio_role: homeassistant
+homeassistant_api: true
+
+map:
+  - type: homeassistant_config
+    read_only: false
+    path: /config
+
+options:
+  remote: "origin"
+  branch: "main"
+  poll_interval: 60
+  local_settle_seconds: 120
+  auto_reload: true
+  dry_run: true
+
+schema:
+  remote: str
+  branch: str
+  poll_interval: int
+  local_settle_seconds: int
+  auto_reload: bool
+  dry_run: bool
