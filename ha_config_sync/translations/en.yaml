@@ -1,0 +1,24 @@
+configuration:
+  remote:
+    name: Git remote
+    description: Name of the configured Git remote. Usually "origin".
+
+  branch:
+    name: Branch
+    description: Git branch to synchronize with Home Assistant. Usually "main".
+
+  poll_interval:
+    name: Poll interval
+    description: How often to check for local or remote configuration changes, in seconds.
+
+  local_settle_seconds:
+    name: Local change settle time
+    description: How long local Home Assistant changes must remain unchanged before they are committed and pushed.
+
+  auto_reload:
+    name: Automatically reload configuration
+    description: Reload Home Assistant YAML configuration after a successful remote update.
+
+  dry_run:
+    name: Dry run
+    description: Detect and log synchronization actions without modifying Git history or Home Assistant configuration.
