@@ -1,5 +1,5 @@
 name: "HA Config Sync"
-version: "0.1.0"
+version: "0.2.0"
 slug: "ha_config_sync"
 description: "Safe bidirectional Git sync for Home Assistant configuration"
 arch:
