@@ -1,0 +1,24 @@
+configuration:
+  remote:
+    name: Git távoli repository
+    description: A beállított Git remote neve. Általában "origin".
+
+  branch:
+    name: Branch
+    description: A Home Assistant konfigurációval szinkronizálandó Git branch.
+
+  poll_interval:
+    name: Ellenőrzési időköz
+    description: Ennyi másodpercenként ellenőrzi a lokális és távoli változásokat.
+
+  local_settle_seconds:
+    name: Lokális változás várakozási ideje
+    description: Ennyi ideig kell változatlannak maradnia a lokális módosításoknak automatikus commit előtt.
+
+  auto_reload:
+    name: Automatikus újratöltés
+    description: Sikeres távoli frissítés után automatikusan töltse újra a Home Assistant YAML konfigurációját.
+
+  dry_run:
+    name: Próbaüzem
+    description: Csak naplózza, mit tenne a szinkronizáló, de nem hajt végre Git vagy Home Assistant módosításokat.
