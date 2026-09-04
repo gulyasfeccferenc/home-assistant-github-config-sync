@@ -270,7 +270,7 @@ handle_remote_changes() {
         notify_issue \
             "HA Config Sync rollback" \
             "A GitHub configuration update failed Home Assistant validation and was rolled back automatically."
-	echo "${remote_head}" > /data/rejected_remote_commit
+	printf '%s\n' "${remote_head}" > /data/rejected_remote_commit
         
 	return
     fi
@@ -304,15 +304,6 @@ sync_once() {
     local now
 
 
-    if [ -f /data/rejected_remote_commit ] \
-        && [ "$(cat /data/rejected_remote_commit)" = "${remote_head}" ]
-    then
-        bashio::log.warning \
-          "Remote commit ${remote_head} was previously rejected by Home Assistant validation."
-        return
-    fi
-
-
     if ! git fetch "${REMOTE}" "${BRANCH}" --quiet; then
         bashio::log.warning "Git fetch failed."
 
@@ -325,6 +316,18 @@ sync_once() {
 
     local_head="$(git rev-parse HEAD)"
     remote_head="$(git rev-parse "${REMOTE}/${BRANCH}")"
+
+	#
+    # Do not retry a remote commit that already failed HA validation.
+    #
+    if [ -f /data/rejected_remote_commit ] \
+        && [ "$(cat /data/rejected_remote_commit)" = "${remote_head}" ]
+    then
+        bashio::log.warning \
+            "Remote commit ${remote_head} was previously rejected by Home Assistant validation."
+        return
+    fi
+	
 
     if [ -n "$(git status --porcelain)" ]; then
         dirty=true
